@@ -8,7 +8,7 @@ use EO::Array;
 use EO::Singleton;
 use base qw( EO::Singleton );
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 
 sub can_thread {
   !!$Config{usethreads};

@@ -10,7 +10,7 @@ use EO::Storage;
 use EO::delegate;
 use Path::Class::File;
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 our @ISA = qw(EO::Storage);
 
 exception EO::Error::File;
@@ -66,7 +66,8 @@ sub exists {
   my $filename = $self->as_string;
   unless(-e $filename) {
     throw EO::Error::File::NotFound
-      text => "Cannot open file: $filename, file not found";
+      text => "Cannot open file: $filename, file not found",
+      filename => $filename;
   }
 }
 

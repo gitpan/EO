@@ -9,7 +9,7 @@ use EO::System::OS;
 use EO::System::Perl;
 use base qw( EO::Singleton );
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 
 sub init {
   my $self = shift;

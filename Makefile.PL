@@ -14,6 +14,7 @@ WriteMakefile
 		    'Data::UUID' => '0.01',
 		    'Test::More' => '0',
 		    'Error' => '0.15',
+		    'Class::Accessor::Chained' => '0',
 		    'Clone' => '0.01',
 		    'Data::Structure::Util' => '0.06',
 		    'Path::Class' => '0.01',

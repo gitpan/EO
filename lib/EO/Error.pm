@@ -6,7 +6,7 @@ use warnings;
 use EO;
 use Error;
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 our $SILENTLY_REDEFINE_EXCEPTIONS = 1;
 our @ISA = qw(Error);
 
@@ -21,6 +21,23 @@ sub new {
     }
     $class->SUPER::new(%new_params);
 }
+
+our $AUTOLOAD;
+sub AUTOLOAD {
+  my $self = shift;
+  my $meth = substr($AUTOLOAD, rindex($AUTOLOAD, ':') + 1);
+  if (defined($self->{"-$meth"})) {
+    if (@_) {
+      $self->{"-$meth"} = shift;
+      return $self;
+    }
+    return $self->{"-$meth"};
+  }
+  throw EO::Error::Method::NotFound
+    text => "no such property $meth defined on this error";
+}
+
+sub DESTROY {}
 
 ##
 ## we actually want a stack trace if we have to stringify.

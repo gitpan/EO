@@ -5,7 +5,7 @@ use warnings;
 
 use EO;
 our @ISA = qw( EO );
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 
 sub new_with_reference {
   my $class = shift;

@@ -9,7 +9,7 @@ use Scalar::Util qw(weaken);
 use EO::Hash;
 #use EO::Locale;
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 our @ISA = qw(EO);
 
 exception EO::Error::InvalidParameter;

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use EO;
 use EO::Error;
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 our @ISA = qw( EO );
 
 exception EO::Error::InvalidParameters;
@@ -29,6 +29,15 @@ sub count : Abstract;
 sub select : Abstract;
 sub do : Abstract;
 
+sub grep {
+  my $self = shift;
+  $self->select( @_ );
+}
+
+sub foreach {
+  my $self = shift;
+  $self->do( @_ );
+}
 
 1;
 

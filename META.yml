@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: EO
-version: 0.93
+version: 0.94
 author:
   - |-
     Arthur Bergman <abergman@fotango.com>
@@ -9,6 +9,7 @@ abstract: A generic base class
 license: perl
 requires:
   Attribute::Handlers: 0.01
+  Class::Accessor::Chained: 0
   Clone: 0.01
   Data::Structure::Util: 0.06
   Data::UUID: 0.01
@@ -23,58 +24,58 @@ conflicts: {}
 provides:
   EO:
     file: lib/EO.pm
-    version: 0.93
+    version: 0.94
   EO::Array:
     file: lib/EO/Array.pm
-    version: 0.93
+    version: 0.94
   EO::Attributes:
     file: lib/EO/Attributes.pm
-    version: 0.93
+    version: 0.94
   EO::Class:
     file: lib/EO/Class.pm
-    version: 0.93
+    version: 0.94
   EO::Collection:
     file: lib/EO/Collection.pm
-    version: 0.93
+    version: 0.94
   EO::Data:
     file: lib/EO/Data.pm
-    version: 0.93
+    version: 0.94
   EO::Error:
     file: lib/EO/Error.pm
-    version: 0.93
+    version: 0.94
   EO::File:
     file: lib/EO/File.pm
-    version: 0.93
+    version: 0.94
   EO::File::Stub:
     file: lib/EO/Class.pm
-    version: 0.93
+    version: 0.94
   EO::Hash:
     file: lib/EO/Hash.pm
-    version: 0.93
+    version: 0.94
   EO::Method:
     file: lib/EO/Method.pm
-    version: 0.93
+    version: 0.94
   EO::NotAttributes:
     file: lib/EO/NotAttributes.pm
-    version: 0.93
+    version: 0.94
   EO::Pair:
     file: lib/EO/Pair.pm
   EO::Singleton:
     file: lib/EO/Singleton.pm
-    version: 1
+    version: 0.94
   EO::Storage:
     file: lib/EO/Storage.pm
-    version: 0.93
+    version: 0.94
   EO::System:
     file: lib/EO/System.pm
-    version: 0.93
+    version: 0.94
   EO::System::OS:
     file: lib/EO/System/OS.pm
-    version: 0.93
+    version: 0.94
   EO::System::Perl:
     file: lib/EO/System/Perl.pm
-    version: 0.93
+    version: 0.94
   EO::delegate:
     file: lib/EO/delegate.pm
-    version: 0.93
+    version: 0.94
 generated_by: Module::Build version 0.22

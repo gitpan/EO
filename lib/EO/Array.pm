@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use EO::Collection;
 
-our $VERSION = "0.93";
+our $VERSION = "0.94";
 our @ISA = qw( EO::Collection );
 
 use overload '@{}' => 'get_reference',

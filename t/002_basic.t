@@ -3,7 +3,7 @@
 
 # t/001_load.t - check module loading and create testing directory
 
-use Test::More tests => 11;
+use Test::More tests => 12;
 use Data::Dumper;
 BEGIN { use_ok( 'EO::File' ); }
 
@@ -14,6 +14,7 @@ eval {
 isa_ok($@, 'EO::Error::File');
 isa_ok($@, 'EO::Error::File::NotFound');
 like($@, qr/file not found/);
+is($@->filename, '/doesntexistanywhere/null', "right filename");
 
 eval {
     my $file = EO::File->new(path => '/');

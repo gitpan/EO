@@ -8,9 +8,12 @@ use EO::Error;
 use Data::UUID;
 use EO::Attributes;
 use EO::NotAttributes;
+use Class::Accessor::Chained;
 use Data::Structure::Util qw( get_blessed );
 
-our $VERSION = "0.93";
+use base qw( Class::Accessor::Chained );
+
+our $VERSION = "0.94";
 our $AUTOLOAD;
 
 exception EO::Error::New;
@@ -120,7 +123,9 @@ EO - A generic base class
 
 This is a base class for the EO module tree.  EO is designed to be a well
 tested, solid, simple, and long living base class that other modules can
-rely on.
+rely on.  EO inherits from Class::Accessor::Chained, and anything that
+inherits from it can easily create its get/set methods.  For more information
+see the documentation from Class::Accessor::Chained.
 
 =head1 CONSTRUCTOR
 

@@ -1,3 +1,7 @@
+0.94    Friday 6th August 2004
+	- added Class::Accessor::Chained as the base
+	  class of EO, for easy accessors.
+
 0.93
 	Monday 5th July 2004
 	- removed test that fails if you are installing as root.
