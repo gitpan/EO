@@ -6,6 +6,8 @@ use warnings;
 use EO::Array;
 use base qw( EO::Array );
 
+our $VERSION = 0.96;
+
 sub at {
   my $self = shift;
   if ($_[0] > 1) {

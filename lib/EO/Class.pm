@@ -11,7 +11,7 @@ use EO::Method;
 use Scalar::Util qw( blessed );
 
 our @ISA = qw( EO );
-our $VERSION = 0.95;
+our $VERSION = 0.96;
 
 exception EO::Error::InvalidState;
 exception EO::Error::ClassNotFound;

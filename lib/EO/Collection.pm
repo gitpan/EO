@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use EO;
 use EO::Error;
-our $VERSION = 0.95;
+our $VERSION = 0.96;
 our @ISA = qw( EO );
 
 exception EO::Error::InvalidParameters;
@@ -37,6 +37,16 @@ sub grep {
 sub foreach {
   my $self = shift;
   $self->do( @_ );
+}
+
+sub as_string {
+  my $self = shift;
+  use Data::Dumper qw();
+  my $d = Data::Dumper->new([ $self->element ]);
+  $d->Indent( 0 );
+  my $str = $d->Dump;
+  $str =~ s/\$VAR\d\s*=\s*//g;
+  return $str;
 }
 
 1;
@@ -82,6 +92,10 @@ provides.
 This gets and sets the raw Perl primitive that is going to be used for
 storage.  An attempt to set this to something other than a reference
 will result in a EO::Error::InvalidParameters exception being thrown.
+
+=item as_string
+
+Returns a string representation of the object useful for debugging purposes.
 
 =back
 

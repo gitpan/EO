@@ -7,6 +7,8 @@ use EO;
 use EO::Array;
 use base qw( EO );
 
+our $VERSION = 0.96;
+
 sub init {
   my $self = shift;
   if ($self->SUPER::init( @_ )) {

@@ -7,6 +7,8 @@ use EO::Array;
 use base qw( EO::Array );
 use Scalar::Util qw( weaken );
 
+our $VERSION = 0.96;
+
 sub splice {
   my $self = shift;
   my $result = $self->SUPER::splice(@_);

@@ -1,3 +1,9 @@
+0.96
+	- Altered the documentation for the base EO class to
+	  make it more true when talking about the clone() method.
+	- added the EO::Hierarchy class, which is nice for data
+	  inheritance
+
 0.95
 	- fixed a bug that meant you couldn't instantiate
 	  an Array with new_with_array( $scalar ), which of course

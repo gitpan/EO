@@ -3,17 +3,17 @@ package EO;
 use strict;
 use warnings;
 
-use Clone;
 use EO::Error;
 use Data::UUID;
 use EO::Attributes;
 use EO::NotAttributes;
 use Class::Accessor::Chained;
 use Data::Structure::Util qw( get_blessed );
+use Storable;
 
 use base qw( Class::Accessor::Chained );
 
-our $VERSION = 0.95;
+our $VERSION = 0.96;
 our $AUTOLOAD;
 
 exception EO::Error::New;
@@ -81,7 +81,7 @@ sub AUTOLOAD {
 
 sub clone {
   my $self = shift;
-  my $clone = Clone::clone( $self );
+  my $clone = Storable::dclone( $self );
   my $objs  = get_blessed( $clone );
   ## ensure we regenerate the oids.
   foreach my $object (@$objs) {
@@ -177,9 +177,10 @@ Returns a new object id.
 =item clone()
 
 The clone method is creates a copy of the object and returns it.  This
-is the only method that should be used for cloning in order to preserve
-id's.  The clone method guarantees that all objects contained within
-an object that respond true to ->isa('EO') will have their id's regenerated.
+is the only method that should be used for cloning in order to refrain
+from preserving id's.  The clone method guarantees that all objects
+contained within an object that respond true to ->isa('EO') will have
+their id's regenerated.
 
 =item as_string()
 

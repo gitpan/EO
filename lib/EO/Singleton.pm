@@ -5,7 +5,7 @@ use strict;
 use EO;
 
 our @ISA       = qw( EO );
-our $VERSION = 0.95;
+our $VERSION = 0.96;
 my $_singletons = {};
 
 sub new {
@@ -16,6 +16,16 @@ sub new {
 sub _reset_singleton {
   my $self = shift;
   $_singletons->{ ref($self) } = $self;
+}
+
+sub get {
+  my $self = ref($_[0]) ? shift : shift->new;
+  $self->SUPER::get( @_ );
+}
+
+sub set {
+  my $self = ref($_[0]) ? shift : shift->new;
+  $self->SUPER::set( @_ );
 }
 
 sub clone {
