@@ -7,7 +7,7 @@ use warnings;
 use Attribute::Handlers;
 use Scalar::Util qw(blessed);
 
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 
 sub UNIVERSAL::Private : ATTR(CODE) {
   my ($package, $symbol, $referent, $attr, $data) = @_;

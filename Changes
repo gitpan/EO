@@ -1,3 +1,8 @@
+0.93
+	Monday 5th July 2004
+	- removed test that fails if you are installing as root.
+	- bumped version in anticipation of a release
+
 0.92    Fri Jul  2 14:23:23 BST 2004
 	
 	Monday 28th June, 2004

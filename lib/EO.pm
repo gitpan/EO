@@ -10,7 +10,7 @@ use EO::Attributes;
 use EO::NotAttributes;
 use Data::Structure::Util qw( get_blessed );
 
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 our $AUTOLOAD;
 
 exception EO::Error::New;

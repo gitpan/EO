@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use EO;
 use EO::Error;
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 our @ISA = qw( EO );
 
 exception EO::Error::InvalidParameters;

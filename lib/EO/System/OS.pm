@@ -5,7 +5,7 @@ use warnings;
 
 use EO::Singleton;
 use base qw( EO::Singleton );
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 
 
 sub osname {

@@ -10,7 +10,7 @@ use EO::Storage;
 use EO::delegate;
 use Path::Class::File;
 
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 our @ISA = qw(EO::Storage);
 
 exception EO::Error::File;

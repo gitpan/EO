@@ -7,7 +7,7 @@ use EO::Pair;
 use EO::Array;
 use EO::Collection;
 
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 our @ISA = qw( EO::Collection );
 
 use overload '%{}'      => 'get_reference',

@@ -9,7 +9,7 @@ use warnings;
 
 use Scalar::Util qw(blessed);
 
-our $VERSION = "0.92";
+our $VERSION = "0.93";
 
 =begin notused
 
