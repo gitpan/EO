@@ -9,13 +9,13 @@ use warnings;
 
 use Scalar::Util qw(blessed);
 
-our $VERSION = "0.91";
+our $VERSION = "0.92";
 
 =begin notused
 
-At some point we should implement private.  We haven't yet.
+At some point we should implement Private.  We haven't yet.
 
-sub UNIVERSAL::private : ATTR(CODE) {
+sub UNIVERSAL::Private : ATTR(CODE) {
   my ($package, $symbol, $referent, $attr, $data) = @_;
   no strict 'refs';
   no warnings 'redefine';
@@ -39,7 +39,7 @@ sub UNIVERSAL::private : ATTR(CODE) {
 
 =cut
 
-sub sub::abstract($) {
+sub sub::Abstract($) {
   my $meth = shift;
   my ($package, $filename, $line) = caller;
   no strict 'refs';
@@ -55,6 +55,8 @@ sub sub::abstract($) {
   };
 }
 
+sub sub::abstract($) { sub::Abstract(@_) }
+
 1;
 
 __END__
@@ -67,7 +69,7 @@ EO::NotAttributes - alternatives to attributes used by EO
 
   use EO::NotAttributes;
 
-  sub::abstract 'bar';
+  sub::Abstract 'bar';
 
 =head1 DESCRIPTION
 
@@ -96,7 +98,7 @@ it and/or modify it under the same terms as Perl itself.
 
 =head1 BUGS
 
-There's no implementation of 'private' yet.   This isn't a
+There's no implementation of 'Private' yet.   This isn't a
 problem yet ;-).
 
 =cut

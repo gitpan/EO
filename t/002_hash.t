@@ -17,9 +17,9 @@ ok(my $array = $object->keys);
 isa_ok($array, 'EO::Array');
 isa_ok($array, 'EO::Collection');
 isa_ok($array, 'EO');
-can_ok($object,'object_at_index');
-ok($object->object_at_index('array', $array));
-is($array, $object->object_at_index('array'));
+can_ok($object,'at');
+ok($object->at('array', $array));
+is($array, $object->at('array'));
 can_ok($object, 'count');
 is(
    $object->keys->count,
@@ -27,7 +27,7 @@ is(
    "equal number of keys and values"
   );
 is($object->count, 1);
-ok($object->object_at_index('whoo',$array));
+ok($object->at('whoo',$array));
 is($object->count,2);
 ok($object->delete( 'whoo' ));
 is($object->count,1);
@@ -58,3 +58,33 @@ isa_ok($@,'EO::Error');
 isa_ok($@,'EO::Error::Method');
 isa_ok($@,'EO::Error::Method::Abstract');
 
+
+my $hash = EO::Hash->new();
+$hash->at( test1 => 'foo' );
+$hash->at( test2 => 'bar' );
+$hash->at( test3 => 'baz' );
+
+
+ok( my $pair = $hash->pair_for( 'test3' ) );
+is( $pair->key, 'test3' );
+is( $pair->value, 'baz' );
+
+my $tarray = EO::Array->new();
+ok(
+   $hash->do(
+	     sub {
+	       $_->key =~ /(\d+)$/;
+	       my $numeral = $1 - 1;
+	       $tarray->at( $numeral, $_->key );
+	       $_
+	     }
+	    )
+  );
+is( $tarray->join(''), 'test1test2test3' );
+
+ok( my $resulthash = $hash->select( sub { $_->value eq 'foo' } ) );
+is( $resulthash->count, 1 );
+is( $resulthash->at( 'test1' ), 'foo' );
+
+is( $resulthash->{ 'test1' }, 'foo' );
+is( join(' ', sort keys %$hash), 'test1 test2 test3' );

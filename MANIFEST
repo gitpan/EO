@@ -8,6 +8,7 @@ NINJA
 Changes
 Todo
 lib/EO.pm
+lib/EO/Pair.pm
 lib/EO/Array.pm
 lib/EO/Attributes.pm
 lib/EO/Class.pm

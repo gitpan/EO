@@ -4,9 +4,8 @@ use strict;
 use warnings;
 use EO;
 use EO::Error;
-our $VERSION = "0.91";
+our $VERSION = "0.92";
 our @ISA = qw( EO );
-
 
 exception EO::Error::InvalidParameters;
 
@@ -23,9 +22,13 @@ sub element {
   return $self->{ element };
 }
 
-sub delete : abstract;
-sub object_at_index : abstract;
-sub count : abstract;
+sub delete : Abstract;
+sub at : Abstract;
+sub count : Abstract;
+
+sub select : Abstract;
+sub do : Abstract;
+
 
 1;
 

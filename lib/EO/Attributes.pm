@@ -7,9 +7,9 @@ use warnings;
 use Attribute::Handlers;
 use Scalar::Util qw(blessed);
 
-our $VERSION = "0.91";
+our $VERSION = "0.92";
 
-sub UNIVERSAL::private : ATTR(CODE) {
+sub UNIVERSAL::Private : ATTR(CODE) {
   my ($package, $symbol, $referent, $attr, $data) = @_;
   no strict 'refs';
   no warnings 'redefine';
@@ -29,7 +29,8 @@ sub UNIVERSAL::private : ATTR(CODE) {
   };
 }
 
-sub UNIVERSAL::abstract : ATTR(CODE) {
+
+sub UNIVERSAL::Abstract : ATTR(CODE) {
   my ($package, $symbol, $referent, $attr, $data) = @_;
   no strict 'refs';
   no warnings 'redefine';
@@ -46,6 +47,22 @@ sub UNIVERSAL::abstract : ATTR(CODE) {
   };
 }
 
+sub UNIVERSAL::Deprecated : ATTR(CODE) {
+  my ($package, $symbol, $referent, $attr, $data) = @_;
+  no strict 'refs';
+  no warnings 'redefine';
+  my $thing = *{$symbol};
+  my $meth = substr($thing, rindex($thing,':')+1);
+  *{$symbol} = sub {
+    my ($pkg, $filename, $line) = caller();
+    print STDERR "use of deprecated method $meth at $filename line $line\n";
+    $referent->( @_ );
+  }
+}
+
+#sub UNIVERSAL::private : ATTR(CODE) { UNIVERSAL::Private(@_) }
+#sub UNIVERSAL::abstract : ATTR(CODE) { UNIVERSAL::Private(@_) }
+
 1;
 
 __END__
@@ -58,12 +75,12 @@ EO::Attributes - attributes used by EO
 
   use EO::Attributes;
 
-  sub foo : private { }
-  sub bar : abstract { }
+  sub foo : Private { }
+  sub bar : Abstract { }
 
 =head1 DESCRIPTION
 
-This module provides two attributes.  Namely, C<private> and C<abstract>.
+This module provides two attributes.  Namely, C<Private> and C<Abstract>.
 Information about these two attributes can be found in the documentation for
 EO.
 

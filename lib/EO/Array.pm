@@ -4,9 +4,11 @@ use strict;
 use warnings;
 use EO::Collection;
 
-our $VERSION = "0.91";
+our $VERSION = "0.92";
 our @ISA = qw( EO::Collection );
 
+use overload '@{}' => 'get_reference',
+             'fallback' => 1;
 
 sub init {
   my $self = CORE::shift;
@@ -17,13 +19,18 @@ sub init {
   return 0;
 }
 
+sub get_reference {
+  my $self = shift;
+  return $self->element;
+}
+
 sub new_with_array {
-  my $class = shift;
+  my $class = CORE::shift;
   my $array;
   if (@_ > 1) {
     $array = [ @_ ];
   } else {
-    $array = shift;
+    $array = CORE::shift;
   }
   if (!$array) {
     throw EO::Error::InvalidParameters text => 'no array specified';
@@ -39,20 +46,49 @@ sub new_with_array {
   return $self;
 }
 
-sub object_at_index {
+sub do {
+  my $self = CORE::shift;
+  my $code = CORE::shift;
+  my $array = EO::Array->new();
+  foreach my $element (@{ $self->element }) {
+    local $_ = $element;
+    $array->push( $code->( $element ) );
+  }
+  return $array;
+}
+
+sub select {
+  my $self = CORE::shift;
+  my $code = CORE::shift;
+  my $array = EO::Array->new();
+  foreach my $element (@{ $self->element }) {
+    local $_ = $element;
+    $array->push( $element ) if $code->( $element );
+  }
+  return $array;
+}
+
+sub at {
   my $self = CORE::shift;
   my $idx  = CORE::shift;
   if (!defined($idx)) {
-    throw EO::Error::InvalidParameters text => 'no index provided for the array';
+    throw EO::Error::InvalidParameters
+      text => 'no index provided for the array';
   }
   if ($idx =~ /\D/) {
-    throw EO::Error::InvalidParameters text => 'non-integer index specified';
+    throw EO::Error::InvalidParameters
+      text => 'non-integer index specified';
   }
   if (@_) {
     $self->element->[ $idx ] = CORE::shift;
     return $self;
   }
   return $self->element->[ $idx ];
+}
+
+sub object_at_index : Deprecated {
+  my $self = shift;
+  $self->at( @_ );
 }
 
 sub delete {
@@ -126,9 +162,9 @@ EO::Array - array type collection
   use EO::Array;
 
   $array = EO::Array->new();
-  $array->object_at_index( 0, 'bar' );
+  $array->at( 0, 'bar' );
 
-  my $thing = $array->object_at_index( 0 );
+  my $thing = $array->at( 0 );
   $thing->delete( 0 );
 
   $array->push('value');
@@ -136,9 +172,12 @@ EO::Array - array type collection
 
   my $count = $array->count;
 
+  my @array = @$array;
+
 =head1 DESCRIPTION
 
-EO::Array is an OO wrapper around Perl's array type.
+EO::Array is an OO wrapper around Perl's array type.  It will act both as
+an object and as an array reference.
 
 =head1 INHERITANCE
 
@@ -161,7 +200,20 @@ Prepares a EO::Array object that has all the elements contained in ARRAYREF.
 
 =over 4
 
-=item object_at_index( KEY [, VALUE] )
+=item do( CODE )
+
+The do method calls CODE with each of the elements of your array.  It sets
+both $_ and the first argument passed to CODE as the element.  The return
+value of CODE is added to a new array that is returned by the do method.
+
+=item select( CODE )
+
+The select method calls CODE with each of the elements of your array, it works
+in a similar way to the do method.  The only difference is that if CODE returns
+a true value, then the element is added to a new array which is returned from
+the select method.
+
+=item at( KEY [, VALUE] )
 
 Gets and sets key value pairs.  KEY should always be an integer.  If provided
 VALUE will be placed in the EO::Array object at the index KEY.

@@ -14,7 +14,7 @@ isa_ok( $methods, 'EO' );
 isa_ok( $methods, 'EO::Array' );
 
 ok( $methods->count > 1 );
-ok( my $method = $methods->object_at_index( 0 ) );
+ok( my $method = $methods->at( 0 ) );
 
 isa_ok( $method, 'EO' );
 isa_ok( $method, 'EO::Method' );
@@ -45,7 +45,7 @@ my $classes = $that->parents();
 isa_ok( $classes, 'EO' );
 isa_ok( $classes, 'EO::Array');
 
-isa_ok( $class = $classes->object_at_index( 0 ), 'EO::Class' );
+isa_ok( $class = $classes->at( 0 ), 'EO::Class' );
 is($class->name, 'EO');
 ok(!$class->can_delegate());
 ok($class->loaded, q{it had better be, we're testing it now...});

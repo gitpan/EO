@@ -1,3 +1,15 @@
+0.92    Fri Jul  2 14:23:23 BST 2004
+	
+	Monday 28th June, 2004
+	- can get EO::Pair objects from EO::Hash's now.
+	- added select() and do() methods to the Collection classes
+	- added Deprecated attribute to mark deprecated methods
+	- started deprecation of object_at_index in favour of at method in all
+	  collection classes (jduncan)
+
+	Sometime before
+	- moved to Uppercase attribute names
+
 0.91	Thursday 20th May, 2004
 
 	26 Fri Mar 26 12:28:00 2004

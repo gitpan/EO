@@ -10,7 +10,7 @@ use EO::Attributes;
 use EO::NotAttributes;
 use Data::Structure::Util qw( get_blessed );
 
-our $VERSION = "0.91";
+our $VERSION = "0.92";
 our $AUTOLOAD;
 
 exception EO::Error::New;
@@ -43,11 +43,11 @@ sub generate_oid {
   Data::UUID->new()->create_str();
 }
 
-sub primitive : private {
+sub primitive : Private {
   return { _eo_init_success => 0 };
 }
 
-sub set_oid : private {
+sub set_oid : Private {
   my $self = shift;
   if (@_) {
     $self->{ oid } = shift;
@@ -175,15 +175,15 @@ an object that respond true to ->isa('EO') will have their id's regenerated.
 
 =over 4
 
-=item abstract
+=item Abstract
 
-The abstract attribute can be assigned to any method.  When it is assigned
+The Abstract attribute can be assigned to any method.  When it is assigned
 it will cause any attempt to call that method to throw an
 EO::Error::Method::Abstract exception. This will happen at runtime.
 
-=item private
+=item Private
 
-The private attribute can be assigned to any method.  Any attempt to call this
+The Private attribute can be assigned to any method.  Any attempt to call this
 method from outside the package it is defined in will cause an
 EO::Error::Method::Private exception to be thrown.
 This will happen at runtime.
@@ -208,12 +208,12 @@ be successfully sent.
 =item EO::Error::Method::Abstract
 
 This exception is thrown whenever there is a method call on a method
-marked with the abstract attribute.
+marked with the Abstract attribute.
 
 =item EO::Error::Method::Private
 
 This exception is thrown whenever there is a method call from outside
-the defining package on a method marked with the private attribute.
+the defining package on a method marked with the Private attribute.
 
 =item EO::Error::InvalidParameters
 
