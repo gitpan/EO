@@ -6,7 +6,7 @@ use warnings;
 use EO;
 use Error;
 
-our $VERSION = "0.94";
+our $VERSION = 0.95;
 our $SILENTLY_REDEFINE_EXCEPTIONS = 1;
 our @ISA = qw(Error);
 

@@ -88,3 +88,14 @@ is( $resulthash->at( 'test1' ), 'foo' );
 
 is( $resulthash->{ 'test1' }, 'foo' );
 is( join(' ', sort keys %$hash), 'test1 test2 test3' );
+
+ok( $resulthash->has( 'test1' ) );
+
+eval {
+  ok( $resulthash->add() );
+};
+ok($@,"should get an exception");
+isa_ok( $@, 'EO::Error' );
+
+ok( $resulthash->add( EO::Pair->new()->key('foo')->value('bar') ) );
+ok( $resulthash->has( 'foo' ) );

@@ -13,7 +13,7 @@ use Data::Structure::Util qw( get_blessed );
 
 use base qw( Class::Accessor::Chained );
 
-our $VERSION = "0.94";
+our $VERSION = 0.95;
 our $AUTOLOAD;
 
 exception EO::Error::New;
@@ -83,12 +83,19 @@ sub clone {
   my $self = shift;
   my $clone = Clone::clone( $self );
   my $objs  = get_blessed( $clone );
+  ## ensure we regenerate the oids.
   foreach my $object (@$objs) {
     if ($object->isa('EO')) {
       $object->set_oid( $object->generate_oid() );
     }
   }
   $clone;
+}
+
+sub as_string {
+  my $self = shift;
+  my $class = ref($self);
+  return "I am an '$class' object";
 }
 
 sub DESTROY { 1; }
@@ -173,6 +180,11 @@ The clone method is creates a copy of the object and returns it.  This
 is the only method that should be used for cloning in order to preserve
 id's.  The clone method guarantees that all objects contained within
 an object that respond true to ->isa('EO') will have their id's regenerated.
+
+=item as_string()
+
+Provides stringification.  Note -- this is not currently overloaded, but
+probably should be considered.
 
 =back
 

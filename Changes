@@ -1,3 +1,8 @@
+0.95
+	- fixed a bug that meant you couldn't instantiate
+	  an Array with new_with_array( $scalar ), which of course
+	  should instantiate an array with one argument
+
 0.94    Friday 6th August 2004
 	- added Class::Accessor::Chained as the base
 	  class of EO, for easy accessors.

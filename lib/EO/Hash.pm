@@ -1,3 +1,4 @@
+
 package EO::Hash;
 
 use strict;
@@ -7,7 +8,7 @@ use EO::Pair;
 use EO::Array;
 use EO::Collection;
 
-our $VERSION = "0.94";
+our $VERSION = 0.95;
 our @ISA = qw( EO::Collection );
 
 use overload '%{}'      => 'get_reference',
@@ -87,7 +88,7 @@ sub do {
     throw EO::Error::InvalidParameters
       text => 'must have a code reference as a parameter';
   }
-  my $hash = EO::Hash->new();
+  my $hash = ref($self)->new();
   foreach my $key (keys %{ $self->element }) {
     my $pair = $self->pair_for( $key );
     $hash->add( $pair->do( $code ) );
@@ -115,7 +116,7 @@ sub select {
 sub add {
   my $self = shift;
   my $pair = shift;
-  if (!$pair->isa('EO::Pair')) {
+  if (!$pair or !$pair->isa('EO::Pair')) {
     throw EO::Error::InvalidParameters
       text => 'argument to add must be a pair';
   }
@@ -169,6 +170,12 @@ sub values {
   }
 }
 
+sub has {
+  my $self = shift;
+  my $key  = shift;
+  exists $self->element->{ $key }
+}
+
 1;
 
 __END__
@@ -184,6 +191,9 @@ EO::Hash - hash type collection
   $hash = EO::Hash->new();
   $hash->at( 'foo', 'bar' );
   my $thing = $hash->at( 'foo' );
+
+  print "ok\n" if $thing->has( 'foo' );
+
   $thing->delete( 'foo' );
 
   my $keys  = $hash->keys;
@@ -219,6 +229,10 @@ Prepares a EO::Hash object that has all the elements contained in HASHREF.
 =head1 METHODS
 
 =over 4
+
+=item has( KEY )
+
+Returns true if the key exists inside the hash
 
 =item add( EO::Pair )
 

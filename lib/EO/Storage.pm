@@ -3,7 +3,7 @@ package EO::Storage;
 use strict;
 use warnings;
 use EO;
-our $VERSION = "0.94";
+our $VERSION = 0.95;
 our @ISA = qw(EO);
 
 sub load : Abstract;

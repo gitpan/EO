@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use EO::Collection;
 
-our $VERSION = "0.94";
+our $VERSION = 0.95;
 our @ISA = qw( EO::Collection );
 
 use overload '@{}' => 'get_reference',
@@ -31,6 +31,10 @@ sub new_with_array {
     $array = [ @_ ];
   } else {
     $array = CORE::shift;
+    if (defined($array) && !ref($array)) {
+      print "Not an array, making it one...\n";
+      $array = [ $array ];
+    }
   }
   if (!$array) {
     throw EO::Error::InvalidParameters text => 'no array specified';
@@ -49,7 +53,7 @@ sub new_with_array {
 sub do {
   my $self = CORE::shift;
   my $code = CORE::shift;
-  my $array = EO::Array->new();
+  my $array = ref($self)->new();
   foreach my $element (@{ $self->element }) {
     local $_ = $element;
     $array->push( $code->( $element ) );
@@ -57,10 +61,15 @@ sub do {
   return $array;
 }
 
+sub reverse {
+  my $self = CORE::shift;
+  ref($self)->new_with_array( CORE::reverse( @{ $self->element } ) );
+}
+
 sub select {
   my $self = CORE::shift;
   my $code = CORE::shift;
-  my $array = EO::Array->new();
+  my $array = ref($self)->new();
   foreach my $element (@{ $self->element }) {
     local $_ = $element;
     $array->push( $element ) if $code->( $element );
@@ -100,14 +109,30 @@ sub delete {
   if ($idx =~ /\D/) {
     throw EO::Error::InvalidParameters text => 'non-integer index specified';
   }
-  $self->splice($idx,1);
+  $self->splice( $idx, 1 );
 }
 
 sub splice {
   my $self = CORE::shift;
   my $offset = CORE::shift;
   my $length = CORE::shift;
-  CORE::splice(@{ $self->element }, $offset, $length, @_);
+  if (!@_ && $length) {
+
+    return CORE::splice( @$self, $offset, $length );
+
+  } elsif (!defined $length) {
+
+    return CORE::splice( @$self, $offset );
+
+  } elsif (!defined $offset) {
+
+    return CORE::splice( @$self  );
+
+  } else {
+
+    return CORE::splice(@$self, $offset, $length, @_);
+
+  }
 }
 
 sub count {
@@ -117,23 +142,23 @@ sub count {
 
 sub push {
   my $self = CORE::shift;
-  CORE::push @{ $self->element }, @_;
+  $self->splice( $self->count, 0, @_ );
   return $self;
 }
 
 sub pop {
   my $self = CORE::shift;
-  CORE::pop @{ $self->element };
+  $self->splice( -1 );
 }
 
 sub shift {
   my $self = CORE::shift;
-  CORE::shift @{ $self->element };
+  $self->splice( 0, 1 );
 }
 
 sub unshift {
   my $self = CORE::shift;
-  CORE::unshift @{ $self->element }, @_;
+  $self->splice( 0, 0, @_ );
   return $self;
 }
 
@@ -250,6 +275,10 @@ Adds items on to the beginning of the EO::Array object
 =item splice( [OFFSET [, LENGTH [, LIST]]] )
 
 Splice an array (see perldoc -f splice for more information).
+
+=item reverse
+
+Returns a new EO::Array object with the elements of the array reversed.
 
 =back
 

@@ -5,7 +5,7 @@ use strict;
 use EO;
 
 our @ISA       = qw( EO );
-our $VERSION = "0.94";;
+our $VERSION = 0.95;
 my $_singletons = {};
 
 sub new {

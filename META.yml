@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: EO
-version: 0.94
+version: 0.95
 author:
   - |-
     Arthur Bergman <abergman@fotango.com>
@@ -24,58 +24,62 @@ conflicts: {}
 provides:
   EO:
     file: lib/EO.pm
-    version: 0.94
+    version: 0.95
   EO::Array:
     file: lib/EO/Array.pm
-    version: 0.94
+    version: 0.95
   EO::Attributes:
     file: lib/EO/Attributes.pm
-    version: 0.94
+    version: 0.95
   EO::Class:
     file: lib/EO/Class.pm
-    version: 0.94
+    version: 0.95
   EO::Collection:
     file: lib/EO/Collection.pm
-    version: 0.94
+    version: 0.95
   EO::Data:
     file: lib/EO/Data.pm
-    version: 0.94
+    version: 0.95
   EO::Error:
     file: lib/EO/Error.pm
-    version: 0.94
+    version: 0.95
   EO::File:
     file: lib/EO/File.pm
-    version: 0.94
+    version: 0.95
   EO::File::Stub:
     file: lib/EO/Class.pm
-    version: 0.94
+    version: 0.95
   EO::Hash:
     file: lib/EO/Hash.pm
-    version: 0.94
+    version: 0.95
+  EO::Message:
+    file: lib/EO/Message.pm
   EO::Method:
     file: lib/EO/Method.pm
-    version: 0.94
+    version: 0.95
   EO::NotAttributes:
     file: lib/EO/NotAttributes.pm
-    version: 0.94
+    version: 0.95
   EO::Pair:
     file: lib/EO/Pair.pm
   EO::Singleton:
     file: lib/EO/Singleton.pm
-    version: 0.94
+    version: 0.95
   EO::Storage:
     file: lib/EO/Storage.pm
-    version: 0.94
+    version: 0.95
   EO::System:
     file: lib/EO/System.pm
-    version: 0.94
+    version: 0.95
   EO::System::OS:
     file: lib/EO/System/OS.pm
-    version: 0.94
+    version: 0.95
   EO::System::Perl:
     file: lib/EO/System/Perl.pm
-    version: 0.94
+    version: 0.95
+  EO::WeakArray:
+    file: lib/EO/WeakArray.pm
   EO::delegate:
     file: lib/EO/delegate.pm
-    version: 0.94
+    version: 0.95
 generated_by: Module::Build version 0.22

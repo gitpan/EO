@@ -1,12 +1,12 @@
 # -*- perl -*-
 
-# t/001_load.t - check module loading and create testing directory
+# t/003_weakarray.t - similar tests to array, only with weakarrays
 
 use Test::More no_plan => 1;
 
-BEGIN { use_ok( 'EO::Array' ); }
+BEGIN { use_ok( 'EO::WeakArray' ); }
 
-ok(my $object = EO::Array->new());
+ok(my $object = EO::WeakArray->new());
 
 isa_ok($object, 'EO::Array');
 isa_ok($object, 'EO');
@@ -40,7 +40,7 @@ ok( $object->delete( 4 ) );
 is( $object->count, 8 );
 
 eval {
-  my $thing = EO::Array->new_with_array();
+  my $thing = EO::WeakArray->new_with_array();
 };
 ok($@);
 isa_ok($@,'EO::Error');
@@ -48,14 +48,14 @@ isa_ok($@,'EO::Error::InvalidParameters');
 
 ## testing to see if the delete fails.
 eval {
-  my $thing = EO::Array->new_with_array(['one']);
+  my $thing = EO::WeakArray->new_with_array(['one']);
   $thing->delete();
 };
 ok($@);
 isa_ok($@,'EO::Error');
 isa_ok($@,'EO::Error::InvalidParameters');
 
-ok( my $newarray = EO::Array->new_with_array( qw( 10 14 22 37 5 9 2 ) ) );
+ok( my $newarray = EO::WeakArray->new_with_array( qw( 10 14 22 37 5 9 2 ) ) );
 ok( my $grepped = $newarray->select( sub { $_ <= 10 } ) );
 is( $grepped->count, 4 );
 is( $grepped->join(' '), '10 5 9 2' );
