@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 use EO;
-use base qw( EO );
-our $VERSION = 0.90;
+our @ISA = qw( EO );
+our $VERSION = "0.91";
 
 sub new_with_reference {
   my $class = shift;

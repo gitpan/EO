@@ -1,0 +1,11 @@
+0.91	Thursday 20th May, 2004
+
+	26 Fri Mar 26 12:28:00 2004
+        - fixed bug in abstract attributes that when called as class name
+          gives wrong class name (mark)
+
+	March 5th 2004
+  	+ Changed oid generation to make it lazy
+
+0.90	25th February, 2004
+	Initial CPAN release

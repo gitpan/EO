@@ -1,23 +1,21 @@
 package EO::Singleton;
 
-use strict;
 use warnings;
-
+use strict;
 use EO;
-use base qw( EO );
 
-our $VERSION = 0.90;
-
-my $singletons = {};
+our @ISA       = qw( EO );
+our $VERSION    = 1;
+my $_singletons = {};
 
 sub new {
   my $class = shift;
-  $singletons->{$class} ||= $class->SUPER::new(@_);
+  $_singletons->{$class} ||= $class->SUPER::new(@_);
 }
 
 sub _reset_singleton {
   my $self = shift;
-  $singletons->{ ref($self) } = $self;
+  $_singletons->{ ref($self) } = $self;
 }
 
 sub clone {

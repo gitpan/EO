@@ -7,9 +7,10 @@ use Clone;
 use EO::Error;
 use Data::UUID;
 use EO::Attributes;
+use EO::NotAttributes;
 use Data::Structure::Util qw( get_blessed );
 
-our $VERSION = 0.90;
+our $VERSION = "0.91";
 our $AUTOLOAD;
 
 exception EO::Error::New;
@@ -35,13 +36,11 @@ sub new {
 
 sub init {
   my $self = shift;
-  $self->set_oid( $self->generate_oid() );
   $self->{ _eo_init_success } = 1;
-  return 1;
 }
 
 sub generate_oid {
-  my $id = Data::UUID->new()->create_str();
+  Data::UUID->new()->create_str();
 }
 
 sub primitive : private {
@@ -60,6 +59,10 @@ sub oid {
   my $self = shift;
   if (@_) {
     throw EO::Error::InvalidParameters text => "Can't set read-only valid oid";
+  }
+  ## generate oids lazily
+  if (!$self->{ oid }) {
+    $self->set_oid( $self->generate_oid() );
   }
   return $self->{ oid };
 }

@@ -1,13 +1,19 @@
+package EO::NotAttributes;
 
-package EO::Attributes;
+# this isn't an EO object, but it needs the EO::Error::* stuff
+# declared in there.
+use EO;
 
 use strict;
 use warnings;
 
-use Attribute::Handlers;
 use Scalar::Util qw(blessed);
 
 our $VERSION = "0.91";
+
+=begin notused
+
+At some point we should implement private.  We haven't yet.
 
 sub UNIVERSAL::private : ATTR(CODE) {
   my ($package, $symbol, $referent, $attr, $data) = @_;
@@ -29,13 +35,16 @@ sub UNIVERSAL::private : ATTR(CODE) {
   };
 }
 
-sub UNIVERSAL::abstract : ATTR(CODE) {
-  my ($package, $symbol, $referent, $attr, $data) = @_;
+=end notused
+
+=cut
+
+sub sub::abstract($) {
+  my $meth = shift;
+  my ($package, $filename, $line) = caller;
   no strict 'refs';
   no warnings 'redefine';
-  my $thing = *{$symbol};
-  my $meth  = substr($thing, rindex($thing,':')+1);
-  *{$symbol} = sub {
+  *{"${package}::${meth}"} = sub {
     my $self = shift;
     my $class = blessed($self) ? ref($self) : $self;
     my ($package, $filename, $line) = caller();
@@ -52,28 +61,31 @@ __END__
 
 =head1 NAME
 
-EO::Attributes - attributes used by EO
+EO::NotAttributes - alternatives to attributes used by EO
 
 =head1 SYNOPSIS
 
-  use EO::Attributes;
+  use EO::NotAttributes;
 
-  sub foo : private { }
-  sub bar : abstract { }
+  sub::abstract 'bar';
 
 =head1 DESCRIPTION
 
-This module provides two attributes.  Namely, C<private> and C<abstract>.
-Information about these two attributes can be found in the documentation for
-EO.
+Attributes are nice, but they can't be used in all situations.
+At the time of writing, perl (5.8.3) cannot apply attributes to
+code that is loaded at run time.
+
+This module provides an alternative interface instead of using
+attributes;  A declarative syntax that can be used to perform similar
+actions to thier EO::Attribute counterparts.
 
 =head1 AUTHOR
 
-James A. Duncan <jduncan@fotango.com>
+Mark Fowler <mark@twoshortplanks.com>
 
 =head1 SEE ALSO
 
-EO
+L<EO>, L<EO::Attributes>
 
 =head1 COPYRIGHT
 
@@ -81,6 +93,11 @@ Copyright 2004 Fotango Ltd.  All Rights Reserved.
 
 This program is free software; you can redistribute
 it and/or modify it under the same terms as Perl itself.
+
+=head1 BUGS
+
+There's no implementation of 'private' yet.   This isn't a
+problem yet ;-).
 
 =cut
 

@@ -1,0 +1,5 @@
+TODO list for Perl module EO
+
+- Make EO::Error be a subclass of EO
+
+

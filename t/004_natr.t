@@ -25,7 +25,7 @@ sub init {
   ++$init_called;
 }
 
-sub whoot : abstract;
+sub::abstract 'whoot';
 
 $object = test::Foo->new();
 

@@ -10,8 +10,8 @@ use EO::Method;
 
 use Scalar::Util qw( blessed );
 
-use base qw( EO );
-our $VERSION = 0.90;
+our @ISA = qw( EO );
+our $VERSION = "0.91";
 
 exception EO::Error::InvalidState;
 exception EO::Error::ClassNotFound;
@@ -346,6 +346,10 @@ to be relied on then EO::Class will throw this exception.
 
 If the parameters passed to methods declared in EO::Class are not
 complete then EO::Class throws an InvalidParameters exception.
+
+=item EO::Error::ClassNotFound
+
+If when trying to C<load> a class the class cannot be found.
 
 =back
 

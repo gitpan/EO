@@ -1,4 +1,12 @@
 Build.PL
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+META.yml
+README
+NINJA
+Changes
+Todo
 lib/EO.pm
 lib/EO/Array.pm
 lib/EO/Attributes.pm
@@ -10,14 +18,12 @@ lib/EO/Error.pm
 lib/EO/File.pm
 lib/EO/Hash.pm
 lib/EO/Method.pm
+lib/EO/NotAttributes.pm
 lib/EO/Singleton.pm
 lib/EO/Storage.pm
 lib/EO/System.pm
 lib/EO/System/OS.pm
 lib/EO/System/Perl.pm
-MANIFEST			This list of files
-META.yml
-README
 t/001_array.t
 t/001_load.t
 t/002_basic.t
@@ -31,3 +37,6 @@ t/01parents.t
 t/02_osprops.t
 t/baz
 t/singleton.t
+t/001_dataload.t
+t/001_delegate_load.t
+t/004_natr.t

@@ -7,7 +7,7 @@ use EO;
 use EO::Class;
 use EO::Method;
 
-our $VERSION = 0.90;
+our $VERSION = "0.91";
 our $AUTOLOAD;
 
 sub import {
